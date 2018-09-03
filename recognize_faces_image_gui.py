@@ -26,14 +26,15 @@ args = vars(ap.parse_args())
 
 # load the known faces and embeddings
 print("[INFO] loading encodings...")
-data = pickle.loads(encoding_file_name, "rb").read())
+data = pickle.loads(open(encoding_file_name, "rb").read())
+
 
 # load the input image and convert it from BGR to RGB
-# image = cv2.imread(args["image"])
+
 
 print("[INFO] Select input image ...")
-image=fileopenbox(msg='Select an image file...',title='Face Detection')
-
+input_file=fileopenbox(msg='Select an image file...',title='Face Detection')
+image = cv2.imread(input_file)
 rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
 # detect the (x, y)-coordinates of the bounding boxes corresponding
