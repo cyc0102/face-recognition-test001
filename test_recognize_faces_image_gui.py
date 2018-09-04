@@ -46,16 +46,18 @@ rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 print("[INFO] recognizing faces...")
 
 t1= datetime.now()#测试起始时间
+# print('t1=',t1)
 boxes = face_recognition.face_locations(rgb, model=default_model)
 
 t2 = datetime.now()#测试结束时间
-print('time spend for face_detection (us): ',(t2-t1).microseconds)#显示总的时间开销
+# print('t2=',t2)
+print('time spend for face_detection: ', t2-t1)#显示总的时间开销
 
 # print('boxes=', boxes)	
 encodings = face_recognition.face_encodings(rgb, boxes)
 
 t3 = datetime.now()#测试结束时间
-print('time spend for face_encoding (us): ',(t3-t2).microseconds)#显示总的时间开销
+print('time spend for face_encoding: ',t3-t2)#显示总的时间开销
 # print('encodings=', encodings)
 # initialize the list of names for each face detected
 names = []
@@ -90,7 +92,7 @@ for encoding in encodings:
 	# update the list of names
 	names.append(name)
 t4 = datetime.now()#测试结束时间
-print('time spend for face_recogniton (us): ',(t4-t3).microseconds)#显示总的时间开销
+print('time spend for face_recogniton: ',t4-t3)#显示总的时间开销
 # loop over the recognized faces
 for ((top, right, bottom, left), name) in zip(boxes, names):
 	# draw the predicted face name on the image
@@ -102,6 +104,6 @@ for ((top, right, bottom, left), name) in zip(boxes, names):
 # show the output image
 cv2.imshow("Image", image)
 t5 = datetime.now()#测试结束时间
-print('time spend for result_show (us): ',(t5-t4).microseconds)#显示总的时间开销
-print('time spend for total (us): ',(t5-t1).microseconds)#显示总的时间开销
+print('time spend for result_show: ',t5-t4)#显示总的时间开销
+print('time spend for total: ',t5-t1)#显示总的时间开销
 cv2.waitKey(0)
