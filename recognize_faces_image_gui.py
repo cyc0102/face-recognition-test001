@@ -27,7 +27,7 @@ args = vars(ap.parse_args())
 # load the known faces and embeddings
 print("[INFO] loading encodings...")
 data = pickle.loads(open(encoding_file_name, "rb").read())
-
+# print('data',data)
 
 # load the input image and convert it from BGR to RGB
 
@@ -41,10 +41,10 @@ rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 # to each face in the input image, then compute the facial embeddings
 # for each face
 print("[INFO] recognizing faces...")
-boxes = face_recognition.face_locations(rgb,
-	model=default_model)
+boxes = face_recognition.face_locations(rgb, model=default_model)
+# print('boxes=', boxes)	
 encodings = face_recognition.face_encodings(rgb, boxes)
-
+# print('encodings=', encodings)
 # initialize the list of names for each face detected
 names = []
 
@@ -53,7 +53,7 @@ for encoding in encodings:
 	# attempt to match each face in the input image to our known
 	# encodings
 	matches = face_recognition.compare_faces(data["encodings"],
-		encoding)
+		encoding, tolerance=0.53)
 	name = "Unknown"
 
 	# check to see if we have found a match
